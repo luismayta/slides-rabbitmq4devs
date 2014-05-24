@@ -115,9 +115,9 @@ if "%1" == "qthelp" (
 	echo.
 	echo.Build finished; now you can run "qcollectiongenerator" with the ^
 .qhcp project file in %BUILDDIR%/qthelp, like this:
-	echo.^> qcollectiongenerator %BUILDDIR%\qthelp\expo_rabbitmq.qhcp
+	echo.^> qcollectiongenerator %BUILDDIR%\qthelp\RabbitMQ.qhcp
 	echo.To view the help file:
-	echo.^> assistant -collectionFile %BUILDDIR%\qthelp\expo_rabbitmq.ghc
+	echo.^> assistant -collectionFile %BUILDDIR%\qthelp\RabbitMQ.ghc
 	goto end
 )
 
@@ -240,3 +240,13 @@ if "%1" == "pseudoxml" (
 )
 
 :end
+
+
+if "%1" == "slides" (
+	%SPHINXBUILD% -b slides %ALLSPHINXOPTS% %BUILDDIR%/slides
+	if errorlevel 1 exit /b 1
+	echo.
+	echo.Build finished. The HTML slides pages are in %BUILDDIR%/slides.
+	goto end
+)
+

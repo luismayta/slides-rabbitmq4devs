@@ -85,17 +85,17 @@ qthelp:
 	@echo
 	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
 	      ".qhcp project file in $(BUILDDIR)/qthelp, like this:"
-	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/expo_rabbitmq.qhcp"
+	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/RabbitMQ.qhcp"
 	@echo "To view the help file:"
-	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/expo_rabbitmq.qhc"
+	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/RabbitMQ.qhc"
 
 devhelp:
 	$(SPHINXBUILD) -b devhelp $(ALLSPHINXOPTS) $(BUILDDIR)/devhelp
 	@echo
 	@echo "Build finished."
 	@echo "To view the help file:"
-	@echo "# mkdir -p $$HOME/.local/share/devhelp/expo_rabbitmq"
-	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/expo_rabbitmq"
+	@echo "# mkdir -p $$HOME/.local/share/devhelp/RabbitMQ"
+	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/RabbitMQ"
 	@echo "# devhelp"
 
 epub:
@@ -175,3 +175,9 @@ pseudoxml:
 	$(SPHINXBUILD) -b pseudoxml $(ALLSPHINXOPTS) $(BUILDDIR)/pseudoxml
 	@echo
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
+
+
+slides:
+	$(SPHINXBUILD) -b slides $(ALLSPHINXOPTS) $(BUILDDIR)/slides
+	@echo "Build finished. The HTML slides are in $(BUILDDIR)/slides."
+
