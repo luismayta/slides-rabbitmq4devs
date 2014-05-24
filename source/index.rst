@@ -51,13 +51,13 @@ Problemas!!
 .. slide:: Performance en la Aplicación
     :level: 2
 
-    **el usuario:**
+    **El Usuario:**
 
     * La aplicación se demora demasiado publicando una imagen.
 
     .. nextslide::
 
-    * y es por esto:
+    * es por esto:
 
         * Redimención.
         * Notificación.
@@ -79,7 +79,9 @@ Problemas!!
 .. slide:: Nuestro Codigo
     :level: 2
 
-    IndexController:: 
+    **IndexController**
+
+    .. code-block:: php 
 
         <?php
             //Image Controller solo es un ejemplo
@@ -103,48 +105,55 @@ Problemas!!
         * debemos quitar el servicio de twitter para las nuevas imagenes.
         * en la redimención se tiene que usar Java o C
 
-¿Que Hacemos?
-=============
 
-* Usamos Crones?
-    * no son inteligentes.
-    * no sirven para escalabilidad.
-    * Como lo haces en PHP no puedes usar Java.
+.. slide:: ¿Que Hacemos?
+    :level: 2
 
-**Los cambios lo quieren para Ayer**
+    * Usamos Crones?
+        * no son inteligentes.
+        * no sirven para escalabilidad.
+        * Como lo haces en PHP no puedes usar Java.
 
-**Que Hacemos!!!**
+    **Los cambios lo quieren para Ayer**
+
+    **Que Hacemos!!!**
+
+.. slide:: ¿Que Hacemos?
+    :level: 1
+
+.. slide:: Usamos Mensajeria
+    :level: 2
+
+    .. image:: ./_static/images/slides/mensajeria.jpg
+        :width: 100%
+        :align: center
+
+.. slide:: Diseño
+    :level: 2
+
+    Publish / Suscribe Pattern
+
+        .. image:: ./_static/images/slides/diagrama_pattern_publish.gif
+            :width: 100%
+            :align: center
 
 
-Usamos Mensajeria
-=================
+.. slide:: Implementación
+    :level: 2
 
-Imagen de Mensajeria
+    .. code-block:: php
 
-Diseño
-======
+        <?php
+                //Image Controller solo es un ejemplo
+                $this->validateParameters($params);
+                $this->isActiveProxy();
+                $ruta = $this->serverElements . $this->config['rest']['image'];
+                $request = \Requests::post($ruta, array(), $params, $this->options);
+                // Resize image
 
-Publish / Suscribe Pattern
-
-[Imagen]
-
-
-Implementación
-==============
-
-IndexController::
-
-    <?php
-            //Image Controller solo es un ejemplo
-            $this->validateParameters($params);
-            $this->isActiveProxy();
-            $ruta = $this->serverElements . $this->config['rest']['image'];
-            $request = \Requests::post($ruta, array(), $params, $this->options);
-            // Resize image
-
-            $this->notifyFriends();
-            $this->awardUser();
-            $this->tweetNewImage();
+                $this->notifyFriends();
+                $this->awardUser();
+                $this->tweetNewImage();
 
 Otras Implementaciones
 ======================
@@ -153,25 +162,25 @@ Otras Implementaciones
 **No hay otras Implementaciones**
 
 
-¿Que nos Permite Hacer La Mensajeria?
-=====================================
+.. slide:: ¿Que nos Permite Hacer La Mensajeria?
+    :level: 2
 
-* Compartir Datos entre procesos.
-* Procesos Pueden Ser Parte de diferentes Aplicaciones.
-* las Aplicaciones Pueden Vivir en Diferentes Servidores.
-* Redundancia.
-* Disponibilidad.
-* Desacoplamiento.
-* Escalabilidad.
-* Elasticidad.
+    * Compartir Datos entre procesos.
+    * Procesos Pueden Ser Parte de diferentes Aplicaciones.
+    * las Aplicaciones Pueden Vivir en Diferentes Servidores.
+    * Redundancia.
+    * Disponibilidad.
+    * Desacoplamiento.
+    * Escalabilidad.
+    * Elasticidad.
 
 
-Conceptos
-=========
+.. slide:: Conceptos
+    :level: 2
 
-* Los mensajes son enviados por **publicacdores**
-* Los mensajes se envian a **Consumidores**
-* Los mensajes pasan a través de un **Chanel**
+    * Los mensajes son enviados por **publicacdores**
+    * Los mensajes se envian a **Consumidores**
+    * Los mensajes pasan a través de un **Chanel**
 
 
 RabbitMQ
@@ -182,34 +191,32 @@ RabbitMQ
 =================
 
 
-RabbitMQ
-========
+.. slide:: RabbitMQ
+    :level: 2
 
-* Sistema de Mensajeria Empresarial.
-* Codigo Libre.
-* Escrito en Erlang.
-* Soporte Comercial.
-* Mensajeria via AMQP.
-
-
-Instalación
-===========
-
-Mac OS X::
-
-    brew install rabbitmq
-
-Debian::
-    
-    $ sudo apt-get update
-    ...
-    $ sudo apt-get install rabbitmq-server
-
-Windows::
-
-    Descarga y next next :p
+    * Sistema de Mensajeria Empresarial.
+    * Codigo Libre.
+    * Escrito en Erlang.
+    * Soporte Comercial.
+    * Mensajeria via AMQP.
 
 
+.. slide:: Instalación
+    :level: 3
+
+    Mac OS X::
+
+        brew install rabbitmq
+
+    Debian::
+        
+        $ sudo apt-get update
+        ...
+        $ sudo apt-get install rabbitmq-server
+
+    Windows::
+
+        Descarga y next next :p
 
 Caracteristicas
 ===============
@@ -239,10 +246,10 @@ AMQP
 * Protocolo Completamente Abierto.
 * Protocolo Binario.
 
-Flujo de Mensajes
-=================
+.. slide:: Flujo de Mensajes
+    :level: 3
 
-    .. image:: ./_static/images/slides/diagrama_pattern_publish.gif
+    .. image:: ./_static/images/slides/producer-consumer.png
         :width: 100%
         :align: center
 
@@ -262,64 +269,76 @@ Tipo de Exchange
 * Topic
 
 
-Fanout Exchange
-===============
+.. slide:: Fanout Exchange
+    :level: 3
 
     .. image:: ./_static/images/slides/fanout_exchange.png
         :width: 100%
         :align: center
 
-Direct Exchange
-===============
+.. slide:: Direct Exchange
+    :level: 3
 
     .. image:: ./_static/images/slides/direct_exchange.png
         :width: 100%
         :align: center
 
-Topic Exchange
-==============
+.. slide:: Topic Exchange
+    :level: 3
 
     .. image:: ./_static/images/slides/topic_exchange.png
         :width: 100%
         :align: center
 
+.. slide:: Que pasa si necesito Mayor Performance
+    :level: 1
 
-Administración
-==============
+.. slide:: Levanto mas Consumidores
+    :level: 1
 
-Debian::
+.. slide::  ¿y que pasa con los mensajes?
+    :level: 2
 
-    $ rabbitmq-plugins enable rabbitmq_management
-    $ sudo service rabbitmq-server start
+    .. image:: ./_static/images/slides/producer-consumer-model.png
+        :width: 100%
+        :align: center
 
-Mac OS X::
+.. slide:: Administración
+    :level: 3
 
-    $ brew services start rabbitmq
+    Debian::
 
-en Mac OS X, el plugin de administración viene por defecto.
+        $ rabbitmq-plugins enable rabbitmq_management
+        $ sudo service rabbitmq-server start
 
-Prueba de Administración
-========================
+    Mac OS X::
 
-Ejecutamos::
+        $ brew services start rabbitmq
 
-    $ rabbitmqctl status
+    en Mac OS X, el plugin de administración viene por defecto.
 
-Salida::
+.. slide:: Prueba de Administración
+    :level: 3
 
-    [{pid,10062},
-     {running_applications,
-         [{rabbitmq_management_visualiser,"RabbitMQ Visualiser","3.2.3"},
-          {rabbitmq_management,"RabbitMQ Management Console","3.2.3"},
-          {rabbitmq_web_dispatch,"RabbitMQ Web Dispatcher","3.2.3"},
-          {webmachine,"webmachine","1.10.3-rmq3.2.3-gite9359c7"},
-          {mochiweb,"MochiMedia Web Server","2.7.0-rmq3.2.3-git680dba8"},
-          {rabbitmq_mqtt,"RabbitMQ MQTT Adapter","3.2.3"},
-          {rabbitmq_stomp,"Embedded Rabbit Stomp Adapter","3.2.3"},
-          {rabbitmq_management_agent,"RabbitMQ Management Agent","3.2.3"},
-          {rabbitmq_amqp1_0,"AMQP 1.0 support for RabbitMQ","3.2.3"},
-          {rabbit,"RabbitMQ","3.2.3"},
-            ...
+    Ejecutamos::
+
+        $ rabbitmqctl status
+
+    Salida::
+
+        [{pid,10062},
+         {running_applications,
+             [{rabbitmq_management_visualiser,"RabbitMQ Visualiser","3.2.3"},
+              {rabbitmq_management,"RabbitMQ Management Console","3.2.3"},
+              {rabbitmq_web_dispatch,"RabbitMQ Web Dispatcher","3.2.3"},
+              {webmachine,"webmachine","1.10.3-rmq3.2.3-gite9359c7"},
+              {mochiweb,"MochiMedia Web Server","2.7.0-rmq3.2.3-git680dba8"},
+              {rabbitmq_mqtt,"RabbitMQ MQTT Adapter","3.2.3"},
+              {rabbitmq_stomp,"Embedded Rabbit Stomp Adapter","3.2.3"},
+              {rabbitmq_management_agent,"RabbitMQ Management Agent","3.2.3"},
+              {rabbitmq_amqp1_0,"AMQP 1.0 support for RabbitMQ","3.2.3"},
+              {rabbit,"RabbitMQ","3.2.3"},
+                ...
 
 
 Interfaz Gráfica
@@ -328,18 +347,44 @@ Interfaz Gráfica
 * tecleamos en el navegador http://localhost:15672
 * usuario por default **guest** password **guest**
 
-
-Login
-=====
+.. slide:: Login
+    :level: 3
 
     .. image:: ./_static/images/slides/login_rabbitmq.png
         :width: 100%
         :align: center
 
-DashBoard
-=========
+.. slide:: DashBoard
+    :level: 3
 
     .. image:: ./_static/images/slides/dash_rabbitmq.png
+        :width: 100%
+        :align: center
+
+.. slide:: Que pasa si el Consumidor se Cae
+    :level: 3
+
+    .. image:: ./_static/images/slides/ohno-cat.jpg
+        :width: 60%
+        :align: center
+
+.. slide:: Usamos Supervisord
+    :level: 1
+
+.. slide:: Supervisord
+    :level: 3
+
+    .. image:: ./_static/images/slides/supervisor.png
+        :width: 50%
+        :align: center
+
+.. slide:: ¿como saber si los procesos estan activos?
+    :level: 1
+
+.. slide:: Interfaz Grafica
+    :level: 3
+
+    .. image:: ./_static/images/slides/gui_supervisord.jpg
         :width: 100%
         :align: center
 
