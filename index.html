@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Usando Vagrant &mdash; RabbitMQ 2014.05.23 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/styles.css" type="text/css" />
+    <link rel="stylesheet" href="_static/slides.css" type="text/css" />
+    
+
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2014.05.23',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/common.js"></script>
+    <script type="text/javascript" src="_static/slides.js"></script>
+    <script type="text/javascript" src="_static/sync.js"></script>
+    <script type="text/javascript" src="_static/controller.js"></script>
+    <script type="text/javascript" src="_static/init.js"></script>
+    
+    <link rel="top" title="RabbitMQ 2014.05.23 documentation" href="#" /> 
+  </head>
+  <body>
+
+<section
+   id="slide_container"
+   class='slides layout-regular'>
+
+
+  <article class="slide level-1" id="usando-vagrant">
+<h1>Usando Vagrant</h1>
+<a class="reference internal image-reference" href="_images/upload_image.png"><img alt="_images/upload_image.png" class="align-center" src="_images/upload_image.png" style="width: 80%;" /></a>
+
+</article>
+<article class="slide level-1" id="about-me">
+<h1>About Me</h1>
+<p>Luis Mayta | &#64;slovacus</p>
+<p><a class="reference external" href="http://luismayta.github.com">http://luismayta.github.com</a></p>
+
+</article>
+<article class="slide level-1" id="que-es-vagrant">
+<h1>¿Que es Vagrant?</h1>
+<ul class="simple">
+<li>Herramienta Open Source</li>
+<li>Multiplataforma</li>
+<li>Permite Virtualizar ambientes</li>
+<li>Soporta Virtualbox ...</li>
+<li>Configurable</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="porque-lo-necesito">
+<h1>¿Porque lo necesito?</h1>
+<ul class="simple">
+<li>Probar server</li>
+<li>Ambientes de Desarrollo Repicables</li>
+<li>Optimizacion</li>
+<li>Tener las mismas dependencias que Produccion</li>
+</ul>
+
+</article>
+<article class="slide level-1" id="ejemplos">
+<h1>Ejemplos</h1>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Proyecto A</td>
+<td>Output</td>
+</tr>
+<tr class="row-even"><td>PHP 5.3</td>
+<td>PHP 5.4</td>
+</tr>
+<tr class="row-odd"><td>MySQL 5</td>
+<td>MongoDB 2.6</td>
+</tr>
+<tr class="row-even"><td>Apache Solr 4.4</td>
+<td>SQLServer
+Apache Solr 4.8
+Redis</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+<article class="slide level-1" id="casos-de-la-vida-real">
+<h1>Casos de la vida real:</h1>
+<p><strong>RRHH :</strong> Hoy empieza el nuevo desarrollador</p>
+<p>Cual es su primera tarea:</p>
+<p><strong>JP (Junior Programmer):</strong> Levantar su Entorno de Desarrollo.</p>
+
+</article>
+<article class="slide level-1" id="tiempo-de-tarea">
+<h1>Tiempo de tarea</h1>
+<p><strong>1 dia o mas</strong></p>
+
+</article>
+<article class="admonition-nos-ayuda-a-bajar-la-barrera-de-entrada-al-proyecto slide level-2">
+<h2>Nos Ayuda a bajar la Barrera de entrada al Proyecto</h2>
+
+</article>
+<article class="admonition-cambios-en-la-tecnologia slide level-2">
+<h2>Cambios en la Tecnologia</h2>
+<p><strong>Salio la nueva Version de Apache Solr</strong>
+o
+<strong>ya no usaremos apache solr vamos a usar ElasticSearch</strong></p>
+
+</article>
+<article class="admonition-vagrant-es-nuestro-amigo-fiel slide level-2">
+<h2>Vagrant es nuestro Amigo Fiel</h2>
+
+</article>
+<article class="admonition-como-lo-instalamos slide level-2">
+<h2>Como lo Instalamos</h2>
+<p>Vagrant usa como dependencia un virtualizador de software (virtualbox)</p>
+
+</article>
+<article class="admonition-como-comienzo slide level-2">
+<h2>Como Comienzo</h2>
+<ul class="simple">
+<li>Crear el VagrantFile (Describe los recursos, tipo de Maquina y Software que vamos a usar)</li>
+</ul>
+
+</article>
+<article class="admonition-box slide level-2">
+<h2>Box</h2>
+<p>Es la imagen del sistema operativo que usaremos.</p>
+<p>podemos descargar de este enlace:</p>
+<div class="highlight-http://www.vagrantbox.es/"><div class="highlight"><pre>como somos amantes de **debian** usaremos algo parecido ubuntu
+
+.. code-block::
+
+   http://files.vagrantup.com/precise32.box
+</pre></div>
+</div>
+
+</article>
+<article class="admonition-agregamos-el-box slide level-2">
+<h2>Agregamos el Box</h2>
+<p><strong>comprobemos</strong></p>
+
+</article>
+<article class="admonition-usemos-el-box slide level-2">
+<h2>Usemos el Box</h2>
+<p><strong>cambiemos cosas en el Vagrantfile</strong></p>
+<p>busquemos:</p>
+<p>y lo cambiamos por:</p>
+
+</article>
+<article class="admonition-levantemos-el-ambiente slide level-2">
+<h2>Levantemos el Ambiente</h2>
+<p><strong>Ahora si preparados</strong></p>
+<p>ahora para instalar las dependencias es:</p>
+
+</article>
+<article class="admonition-ejemplo-de-instalar-git slide level-2">
+<h2>Ejemplo de instalar Git</h2>
+<p>Listo eso es Todo, Aplausos :P</p>
+
+</article>
+<article class="admonition-gracias slide level-1">
+<h1>Gracias</h1>
+
+</article>
+<article class="admonition-preguntas slide level-2">
+<h2>Preguntas</h2>
+<ul class="simple">
+<li>Esto me ayuda a tener entornos repicables?</li>
+<li>La instalacion pesa mucho, no lo puedo tener en un repo.</li>
+<li>para que hacer todo esto si puedo usar simplemente VirtualBox.</li>
+<li>Donde esta la Automatizacion? ...</li>
+<li>Que estafador ... (El Gringo de Go ...)</li>
+</ul>
+
+</article>
+<article class="admonition-exacto-esto-no-es-todo slide level-1">
+<h1>Exacto esto no es todo</h1>
+
+</article>
+<article class="admonition-comandos-de-vagrant slide level-2">
+<h2>Comandos de Vagrant</h2>
+
+</article>
+<article class="admonition-configuracion-de-vagrant slide level-1">
+<h1>Configuracion de Vagrant</h1>
+
+</article>
+<article class="admonition-ejemplo-de-config-vagrant slide level-1">
+<h1>Ejemplo de config Vagrant</h1>
+
+</article>
+<article class="admonition-configuracion-network slide level-2">
+<h2>Configuracion network</h2>
+
+</article>
+<article class="admonition-enrutamiento-de-puertos slide level-2">
+<h2>Enrutamiento de Puertos</h2>
+
+</article>
+<article class="admonition-configuracion-de-pc slide level-2">
+<h2>Configuracion de Pc</h2>
+
+</article>
+<article class="admonition-sincronizacion-de-carpetas-con-nfs slide level-2">
+<h2>Sincronizacion de Carpetas con NFS</h2>
+
+</article>
+<article class="admonition-exportar-el-box slide level-2">
+<h2>Exportar el Box</h2>
+
+</article>
+<article class="admonition-provision slide level-1">
+<h1>Provision</h1>
+
+</article>
+<article class="admonition-tipos-de-provision slide level-2">
+<h2>Tipos de Provision</h2>
+<ul class="simple">
+<li>Shell</li>
+<li>Puppet</li>
+<li>Puppet Server</li>
+<li>Chef</li>
+<li>Chef Server</li>
+<li>Ansible</li>
+<li>Fabric</li>
+</ul>
+
+</article>
+<article class="admonition-usando-puppet slide level-2">
+<h2>Usando Puppet</h2>
+<dl class="docutils">
+<dt>guest_config.vm.provision :puppet do <a href="#id1"><span class="problematic" id="id2">|puppet|</span></a></dt>
+<dd>puppet.manifests_path = &quot;provision/puppet/manifests&quot;
+puppet.manifest_file  = &quot;init.pp&quot;
+puppet.module_path = &quot;provision/puppet/modules&quot;</dd>
+</dl>
+<p>end</p>
+
+</article>
+<article class="admonition-demo slide level-1">
+<h1>Demo</h1>
+
+</article>
+<article class="admonition-vagrant-halt slide level-2">
+<h2>Vagrant halt</h2>
+
+</article>
+
+
+</section>
+
+<section id="slide_notes">
+
+</section>
+
+  </body>
+</html>
