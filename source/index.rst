@@ -1,6 +1,9 @@
 
-Reduciendo El acoplamiento entre Aplicaciones con RabbitMQ
-==========================================================
+Usando Vagrant
+==============
+.. image:: ./_static/images/slides/upload_image.png
+            :width: 80%
+            :align: center
 
 About Me
 ========
@@ -10,388 +13,278 @@ Luis Mayta | @slovacus
 http://luismayta.github.com
 
 
-¿Porque necesito usar Mensajes?
-===============================
+¿Que es Vagrant?
+================
+
+* Herramienta Open Source
+* Multiplataforma
+* Permite Virtualizar ambientes
+* Soporta Virtualbox ...
+* Configurable
+
+¿Porque lo necesito?
+====================
+
+* Probar server
+* Ambientes de Desarrollo Repicables
+* Optimizacion
+* Tener las mismas dependencias que Produccion
+
+Ejemplos
+========
+
+===============     =============
+Proyecto A          Output
+---------------     -------------
+PHP 5.3             PHP 5.4  
+MySQL 5             MongoDB 2.6
+Apache Solr 4.4     SQLServer
+                    Apache Solr 4.8
+                    Redis
+===============     =============
+
+Casos de la vida real:
+======================
+
+**RRHH :** Hoy empieza el nuevo desarrollador
+
+Cual es su primera tarea:
+
+**JP (Junior Programmer):** Levantar su Entorno de Desarrollo.
+
+Tiempo de tarea
+===============
+
+**1 dia o mas**
 
 
-.. slide:: Galeria de Imagenes
-    :level: 3
-
-        .. image:: ./_static/images/slides/upload_image.png
-            :width: 80%
-            :align: center
-
-¿Recontra sencillo no es asi?
-=============================
-
-
-Hasta que LLega el AF
-=====================
-
-**sin Documentación**
-
-
-LLegan los Nuevos Requerimientos
-================================
-
-* podemos notificar a los amigos del usuario sobre sus nuevas imagenes.
-* premios a los usuarios por cada foto que suben.
-* Esta de moda Twitter, enviemos notificaciones.
-
-
-Problemas!!
-===========
-
-* Estamos mostrando las imagenes sin redimencionar.
-* Ya tenemos un proceso de redimencion en Java usemos eso (pero la aplicación esta en php :).
-* Otro desarrollador dice: necesito llamar tus sistemas PHP pero desde Python.
-* y tambien a Java y Ruby.
-
-
-.. slide:: Performance en la Aplicación
+.. slide:: Nos Ayuda a bajar la Barrera de entrada al Proyecto
     :level: 2
 
-    **El Usuario:**
 
-    * La aplicación se demora demasiado publicando una imagen.
-
-    .. nextslide::
-
-    * es por esto:
-
-        * Redimención.
-        * Notificación.
-        * Premios.
-        * clases que contienen 6000 lineas de codigo.
-        * Programadores que piensan en escalabilidad Vertical.
-
-    .. nextslide::
-
-    **usuario:** a mi no me interesa, yo quiero publicar mi imagen!!!
-
-.. slide:: Nosotros
+.. slide:: Cambios en la Tecnologia
     :level: 2
 
-    .. image:: ./_static/images/slides/ohnoo.jpeg
-                :width: 80%
-                :align: center
+    **Salio la nueva Version de Apache Solr**
+    o
+    **ya no usaremos apache solr vamos a usar ElasticSearch**
 
-.. slide:: Nuestro Codigo
+.. slide:: Vagrant es nuestro Amigo Fiel
     :level: 2
 
-    **IndexController**
+.. slide:: Como lo Instalamos
+    :level: 2
 
-    .. code-block:: php 
+    .. code-block:: enlace de descarga
 
-        <?php
-            //Image Controller solo es un ejemplo
-            $this->validateParameters($params);
-            $this->isActiveProxy();
-            $ruta = $this->serverElements . $this->config['rest']['image'];
-            $request = \Requests::post($ruta, array(), $params, $this->options);
-            // Resize image
+        http://downloads.vagrantup.com/
 
-            $this->notifyFriends();
-            $this->awardUser();
-            $this->tweetNewImage();
+    Vagrant usa como dependencia un virtualizador de software (virtualbox)
 
+    .. code-block::
+
+        https://www.virtualbox.org/
+
+.. slide:: Como Comienzo
+    :level: 2
+
+    * Crear el VagrantFile (Describe los recursos, tipo de Maquina y Software que vamos a usar)
+
+    .. code-block::
+
+        mkdir test-vagrant
+        cd test-vagrant
+        vagrant init
+
+.. slide:: Box
+    :level: 2
+
+    Es la imagen del sistema operativo que usaremos.
+
+    podemos descargar de este enlace:
+
+    .. code-block::
+        http://www.vagrantbox.es/
+
+     como somos amantes de **debian** usaremos algo parecido ubuntu
+
+     .. code-block::
+
+        http://files.vagrantup.com/precise32.box
+
+.. slide:: Agregamos el Box
+    :level: 2
+
+    .. code-block::
+
+         vagrant box add nombre_del_box http://url_del_box.box
+
+    .. code-block::
+
+         vagrant box add precise32 http://files.vagrantup.com/precise32.box
+
+    **comprobemos**
+
+    .. code-block::
+
+         vagrant box list
+
+.. slide:: Usemos el Box
+    :level: 2
+
+    **cambiemos cosas en el Vagrantfile**
+
+    busquemos:
+    
+    .. code-block::
+
+        config.vm.box = "base"
+
+    y lo cambiamos por:
+        
+    .. code-block::
+
+        config.vm.box = "precise32"
+        
+        
+.. slide:: Levantemos el Ambiente
+    :level: 2
+
+    **Ahora si preparados**
+
+    .. code-block::
+
+        vagrant up
+
+    ahora para instalar las dependencias es:
+        
+    .. code-block::
+
+        vagrant ssh
+        
+
+.. slide:: Ejemplo de instalar Git
+    :level: 2
+
+    .. code-block::
+
+        vagrant ssh
+        sudo apt-get update
+        sudo apt-get install git
+
+    Listo eso es Todo, Aplausos :P
+        
+.. slide:: Gracias
+    :level: 1
+    
+ 
 .. slide:: Preguntas
     :level: 2
 
-    * ¿Nuestro codigo puede aceptar nuevos requerimientos?
-    * Que pasa si:
-        * necesitamos incrementar la velocidad de la redimención.
-        * las notificaciones de los usuarios se tienen que enviar por email.
-        * debemos quitar el servicio de twitter para las nuevas imagenes.
-        * en la redimención se tiene que usar Java o C
+    * Esto me ayuda a tener entornos repicables?
+    * La instalacion pesa mucho, no lo puedo tener en un repo.
+    * para que hacer todo esto si puedo usar simplemente VirtualBox.
+    * Donde esta la Automatizacion? ...
+    * Que estafador ... (El Gringo de Go ...) 
 
-
-.. slide:: ¿Que Hacemos?
-    :level: 2
-
-    * Usamos Crones?
-        * no son inteligentes.
-        * no sirven para escalabilidad.
-        * Como lo haces en PHP no puedes usar Java.
-
-    **Los cambios lo quieren para Ayer**
-
-    **Que Hacemos!!!**
-
-.. slide:: ¿Que Hacemos?
+.. slide:: Exacto esto no es todo
     :level: 1
 
-.. slide:: Usamos Mensajeria
+.. slide:: Comandos de Vagrant
     :level: 2
 
-    .. image:: ./_static/images/slides/mensajeria.jpg
-        :width: 100%
-        :align: center
+    .. code-block::
 
-.. slide:: Diseño
-    :level: 2
-
-    Publish / Suscribe Pattern
-
-        .. image:: ./_static/images/slides/diagrama_pattern_publish.gif
-            :width: 100%
-            :align: center
-
-
-.. slide:: Implementación
-    :level: 2
-
-    .. code-block:: php
-
-        <?php
-                //Image Controller solo es un ejemplo
-                $this->validateParameters($params);
-                $this->isActiveProxy();
-                $ruta = $this->serverElements . $this->config['rest']['image'];
-                $request = \Requests::post($ruta, array(), $params, $this->options);
-                // Resize image
-
-                $this->notifyFriends();
-                $this->awardUser();
-                $this->tweetNewImage();
-
-Otras Implementaciones
-======================
-
-
-**No hay otras Implementaciones**
-
-
-.. slide:: ¿Que nos Permite Hacer La Mensajeria?
-    :level: 2
-
-    * Compartir Datos entre procesos.
-    * Procesos Pueden Ser Parte de diferentes Aplicaciones.
-    * las Aplicaciones Pueden Vivir en Diferentes Servidores.
-    * Redundancia.
-    * Disponibilidad.
-    * Desacoplamiento.
-    * Escalabilidad.
-    * Elasticidad.
-
-
-.. slide:: Conceptos
-    :level: 2
-
-    * Los mensajes son enviados por **publicacdores**
-    * Los mensajes se envian a **Consumidores**
-    * Los mensajes pasan a través de un **Chanel**
-
-
-RabbitMQ
-========
-
-
-¿Que es RabbitMQ?
-=================
-
-
-.. slide:: RabbitMQ
-    :level: 2
-
-    * Sistema de Mensajeria Empresarial.
-    * Codigo Libre.
-    * Escrito en Erlang.
-    * Soporte Comercial.
-    * Mensajeria via AMQP.
-
-
-.. slide:: Instalación
-    :level: 3
-
-    Mac OS X::
-
-        brew install rabbitmq
-
-    Debian::
-        
-        $ sudo apt-get update
+        vagrant up
+        vagrant init
+        vagrant destroy
+        vagrant halt
+        vagrant provision
+        vagrant ssh
+        vagrant status
         ...
-        $ sudo apt-get install rabbitmq-server
 
-    Windows::
-
-        Descarga y next next :p
-
-Caracteristicas
-===============
-
-* confiable y altamente Escalable.
-* Fácil de Instalar.
-* Fácil de Clusterizar.
-* Multiplataforma.
-* AMQP 0.8 - 0.9.1
-
-
-Clientes AMQP
-=============
-
-* Java
-* .NET/C#
-* Erlang
-* Ruby
-* Python
-* PHP, PERL ...
-
-AMQP
-====
-
-* Adavanced Message Queuing Protocol.
-* Pensado para la Interoperabilidad.
-* Protocolo Completamente Abierto.
-* Protocolo Binario.
-
-.. slide:: Flujo de Mensajes
-    :level: 3
-
-    .. image:: ./_static/images/slides/producer-consumer.png
-        :width: 100%
-        :align: center
-
-Modelo AMQP
-===========
-
-* Exchanges.
-* Message Queues.
-* Bindings.
-* Rules For Binding Them.
-
-Tipo de Exchange
-================
-
-* Fanout
-* Direct
-* Topic
-
-
-.. slide:: Fanout Exchange
-    :level: 3
-
-    .. image:: ./_static/images/slides/fanout_exchange.png
-        :width: 100%
-        :align: center
-
-.. slide:: Direct Exchange
-    :level: 3
-
-    .. image:: ./_static/images/slides/direct_exchange.png
-        :width: 100%
-        :align: center
-
-.. slide:: Topic Exchange
-    :level: 3
-
-    .. image:: ./_static/images/slides/topic_exchange.png
-        :width: 100%
-        :align: center
-
-.. slide:: Que pasa si necesito Mayor Performance
+.. slide:: Configuracion de Vagrant
     :level: 1
 
-.. slide:: Levanto mas Consumidores
+.. slide:: Ejemplo de config Vagrant
     :level: 1
 
-.. slide::  ¿y que pasa con los mensajes?
+.. slide:: Configuracion network
     :level: 2
 
-    .. image:: ./_static/images/slides/producer-consumer-model.png
-        :width: 100%
-        :align: center
+    .. code-block::
 
-.. slide:: Administración
-    :level: 3
+         guest_config.vm.network :private_network, ip: "192.168.33.10"
+         guest_config.vm.network "public_network"
+        
+.. slide:: Enrutamiento de Puertos
+    :level: 2
 
-    Debian::
+    .. code-block::
 
-        $ rabbitmq-plugins enable rabbitmq_management
-        $ sudo service rabbitmq-server start
+         guest_config.vm.network :forwarded_port, guest: 80, host: 8888, auto_correct: true
+         guest_config.vm.network :forwarded_port, guest: 3306, host: 8889, auto_correct: true
+         guest_config.vm.network :forwarded_port, guest: 5432, host: 5433, auto_correct: true
 
-    Mac OS X::
+.. slide:: Configuracion de Pc
+    :level: 2
 
-        $ brew services start rabbitmq
+    .. code-block::
+         guest_config.vm.hostname = "guest"
+         guest_config.vm.provider :virtualbox do |v|
+             v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+             v.customize ["modifyvm", :id, "--memory", "1024"]
+         end
 
-    en Mac OS X, el plugin de administración viene por defecto.
+.. slide:: Sincronizacion de Carpetas con NFS
+    :level: 2
 
-.. slide:: Prueba de Administración
-    :level: 3
+    .. code-block::
+        guest_config.vm.synced_folder "./", "/var/www", {:mount_options => ['dmode=777','fmode=777']}
 
-    Ejecutamos::
+.. slide:: Exportar el Box
+    :level: 2
 
-        $ rabbitmqctl status
-
-    Salida::
-
-        [{pid,10062},
-         {running_applications,
-             [{rabbitmq_management_visualiser,"RabbitMQ Visualiser","3.2.3"},
-              {rabbitmq_management,"RabbitMQ Management Console","3.2.3"},
-              {rabbitmq_web_dispatch,"RabbitMQ Web Dispatcher","3.2.3"},
-              {webmachine,"webmachine","1.10.3-rmq3.2.3-gite9359c7"},
-              {mochiweb,"MochiMedia Web Server","2.7.0-rmq3.2.3-git680dba8"},
-              {rabbitmq_mqtt,"RabbitMQ MQTT Adapter","3.2.3"},
-              {rabbitmq_stomp,"Embedded Rabbit Stomp Adapter","3.2.3"},
-              {rabbitmq_management_agent,"RabbitMQ Management Agent","3.2.3"},
-              {rabbitmq_amqp1_0,"AMQP 1.0 support for RabbitMQ","3.2.3"},
-              {rabbit,"RabbitMQ","3.2.3"},
-                ...
+    .. code-block::
+       vagrant up
+       (setup)
+       vagrant halt
+       vagrant package
+       mv package.box ~/boxes/my_box.box
 
 
-Interfaz Gráfica
-================
-
-* tecleamos en el navegador http://localhost:15672
-* usuario por default **guest** password **guest**
-
-.. slide:: Login
-    :level: 3
-
-    .. image:: ./_static/images/slides/login_rabbitmq.png
-        :width: 100%
-        :align: center
-
-.. slide:: DashBoard
-    :level: 3
-
-    .. image:: ./_static/images/slides/dash_rabbitmq.png
-        :width: 100%
-        :align: center
-
-.. slide:: Que pasa si el Consumidor se Cae
-    :level: 3
-
-    .. image:: ./_static/images/slides/ohno-cat.jpg
-        :width: 60%
-        :align: center
-
-.. slide:: Usamos Supervisord
+.. slide:: Provision
     :level: 1
 
-.. slide:: Supervisord
-    :level: 3
 
-    .. image:: ./_static/images/slides/supervisor.png
-        :width: 50%
-        :align: center
+.. slide:: Tipos de Provision
+    :level: 2
 
-.. slide:: ¿como saber si los procesos estan activos?
+    * Shell
+    * Puppet
+    * Puppet Server
+    * Chef
+    * Chef Server
+    * Ansible
+    * Fabric
+
+.. slide:: Usando Puppet
+    :level: 2
+
+    .. code-block::
+
+    guest_config.vm.provision :puppet do |puppet|
+        puppet.manifests_path = "provision/puppet/manifests"
+        puppet.manifest_file  = "init.pp"
+        puppet.module_path = "provision/puppet/modules"
+    end
+
+.. slide:: Demo
     :level: 1
 
-.. slide:: Interfaz Grafica
-    :level: 3
+.. slide:: Vagrant halt
+    :level: 2
 
-    .. image:: ./_static/images/slides/gui_supervisord.jpg
-        :width: 100%
-        :align: center
-
-Demo
-====
-
-**YEAH**
-
-¿Preguntas?
-===========
+    Preguntas?
+    ----------

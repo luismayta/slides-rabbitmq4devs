@@ -1,6 +1,6 @@
+bin
 include
 .Python
-bin/
 build/
-lib/
 .ropeproject/
+lib
