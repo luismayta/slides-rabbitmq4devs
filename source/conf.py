@@ -35,6 +35,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.pngmath',
     'sphinx.ext.ifconfig',
+    "sphinxtogithub"
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -136,6 +137,9 @@ html_theme = 'default'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+sphinx_to_github = True
+sphinx_to_github_verbose = True
+sphinx_to_github_encoding = "utf-8"
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
 # directly to the root of the documentation.
