@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+pyenv virtualenv vagrant-2.7.9
+
+pyenv activate vagrant-2.7.9
+
+pip install -r requirements.txt
