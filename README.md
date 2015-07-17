@@ -1,4 +1,11 @@
+
+<span class="badges">
+[![Stories in Ready](https://badge.waffle.io/luismayta/decoupled-applications-with-rabbitmq.svg?label=ready&title=Ready)](http://waffle.io/luismayta/decoupled-applications-with-rabbitmq)
+[![GitHub issues](https://img.shields.io/github/issues/luismayta/decoupled-applications-with-rabbitmq.svg)](https://github.com/luismayta/decoupled-applications-with-rabbitmq/issues)
+[![GitHub forks](https://img.shields.io/github/forks/luismayta/decoupled-applications-with-rabbitmq.svg)](https://github.com/luismayta/decoupled-applications-with-rabbitmq)
+[![GitHub stars](https://img.shields.io/github/stars/luismayta/decoupled-applications-with-rabbitmq.svg)](https://github.com/luismayta/decoupled-applications-with-rabbitmq)
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](LICENSE)
+</span>
 
 # Aplicaciones desacopladas con RabbitMQ
 
@@ -42,4 +49,8 @@ ir a un navegador y colocar:
 http://localhost:5000
 ```
 
+<span class="badges">
+[![](http://api.coderwall.com/luismayta/endorsecount.png)](http://coderwall.com/luismayta)
 [![](http://www.linkedin.com/img/webpromo/btn_liprofile_blue_80x15.png)](http://pe.linkedin.com/in/luismayta)
+[![Analytics](https://ga-beacon.appspot.com/UA-65019326-1/decoupled-applications-with-rabbitmq/readme)](https://github.com/luismayta/decoupled-applications-with-rabbitmq)
+</span>
