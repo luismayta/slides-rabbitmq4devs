@@ -4,6 +4,8 @@
 
 # Implementar Galeria de Imagenes
 
+![Galeria de Imagenes](../static/images/slides/upload_image.png)
+
 --------------------------------------------------
 
 # Recontra sencillo no es asi?
@@ -53,7 +55,37 @@
 
 # Nosotros.
 
-![Landscape](../static/images/slides/ohnoo.jpeg)
+![gato oh no](../static/images/slides/ohnoo.jpeg)
+
+--------------------------------------------------
+
+# Performance en la Aplicacion
+
+**Usuario:**
+
+* La aplicación se demora demasiado publicando una imagen.
+
+--------------------------------------------------
+
+# Se podria deber a esto:
+
+* Redimención.
+* Notificación.
+* Premios.
+* clases que contienen 6000 lineas de codigo.
+* Programadores que piensan en escalabilidad Vertical.
+
+--------------------------------------------------
+
+# Lo que piensa el usuario
+
+### a mi no me interesa, yo quiero publicar mi imagen!!!
+
+--------------------------------------------------
+
+# Nosotros.
+
+![oh no](../static/images/slides/ohnoo.jpeg)
 
 --------------------------------------------------
 
@@ -94,15 +126,15 @@
     * no sirven para escalabilidad.
     * Como lo haces en PHP no puedes usar Java.
 
-## Los cambios lo quieren para Ayer
+### Los cambios lo quieren para Ayer
 
-## Que Hacemos!!!
+### Que Hacemos!!!
 
 --------------------------------------------------
 
 # Usamos Mensajeria:
 
-![Landscape](../static/images/slides/mensajeria.jpg)
+![mensajeria](../static/images/slides/mensajeria.jpg)
 
 --------------------------------------------------
 
@@ -110,13 +142,13 @@
 
 ## Publish / Suscribe Pattern
 
-![Landscape](../static/images/slides/diagrama_pattern_publish.gif)
+![pattern publish](../static/images/slides/diagrama_pattern_publish.gif)
 
 --------------------------------------------------
 
 # Implementacion:
 
-    !PHP
+    !php
 
     <?php
         //Image Controller solo es un ejemplo
@@ -153,17 +185,13 @@
 
 # Conceptos:
 
-* Los mensajes son enviados por **publicacdores**
+* Los mensajes son enviados por **publicadores**
 * Los mensajes se envian a **Consumidores**
 * Los mensajes pasan a través de un **Chanel**
 
 --------------------------------------------------
 
 # RabbitMQ:
-
---------------------------------------------------
-
-# Que es RabbitMQ?
 
 --------------------------------------------------
 
@@ -181,13 +209,13 @@
 
 ## OS X
 
-  !Bash
+    !bash
 
     brew install rabbitmq
 
 ## Debian
 
-  !Bash
+    !bash
 
     $ sudo apt-get update
     ...
@@ -195,7 +223,7 @@
 
 ## Windows
 
-  !Bash
+    !bash
 
     Descarga y next next :p
 
@@ -233,7 +261,7 @@
 
 # Flujo de Mensajes:
 
-![Landscape](../static/images/slides/producer-consumer.png)
+![producer consumer mensajes](../static/images/slides/producer-consumer.png)
 
 --------------------------------------------------
 
@@ -256,20 +284,19 @@
 
 # Fanout Exchange:
 
-![Landscape](../static/images/slides/fanout_exchange.png)
+![fanout exchange](../static/images/slides/fanout_exchange.png)
 
 --------------------------------------------------
 
 # Direct Exchange:
 
-
-![Landscape](../static/images/slides/direct_exchange.png)
+![direct exchange](../static/images/slides/direct_exchange.png)
 
 --------------------------------------------------
 
 # Topic Exchange:
 
-![Landscape](../static/images/slides/_topic_exchange.png)
+![topic exchange](../static/images/slides/topic_exchange.png)
 
 --------------------------------------------------
 
@@ -283,7 +310,7 @@
 
 # y que pasa con los mensajes?
 
-![Landscape](../static/images/slides/product-consumer-model.png)
+![producer consumer model](../static/images/slides/producer-consumer-model.png)
 
 --------------------------------------------------
 
@@ -293,14 +320,15 @@
 
     !bash
 
-      $ rabbitmq-plugins enable rabbitmq_management
-      $ sudo service rabbitmq-server start
+    $ rabbitmq-plugins enable rabbitmq_management
+    $ sudo service rabbitmq-server start
 
-## OS X::
+## OS X
 
     !bash
 
-      $ brew services start rabbitmq
+    $ brew services start rabbitmq
+
 
 **En OS X, el plugin de administración viene por defecto.**
 
@@ -312,24 +340,24 @@
 
     !bash
 
-      $ rabbitmqctl status
+    $ rabbitmqctl status
 
 ## Salida:
 
     !bash
 
-      [{pid,10062},
-        {running_applications,
-            [{rabbitmq_management_visualiser,"RabbitMQ Visualiser","3.2.3"},
-            {rabbitmq_management,"RabbitMQ Management Console","3.2.3"},
-            {rabbitmq_web_dispatch,"RabbitMQ Web Dispatcher","3.2.3"},
-            {webmachine,"webmachine","1.10.3-rmq3.2.3-gite9359c7"},
-            {mochiweb,"MochiMedia Web Server","2.7.0-rmq3.2.3-git680dba8"},
-            {rabbitmq_mqtt,"RabbitMQ MQTT Adapter","3.2.3"},
-            {rabbitmq_stomp,"Embedded Rabbit Stomp Adapter","3.2.3"},
-            {rabbitmq_management_agent,"RabbitMQ Management Agent","3.2.3"},
-            {rabbitmq_amqp1_0,"AMQP 1.0 support for RabbitMQ","3.2.3"},
-            {rabbit,"RabbitMQ","3.2.3"},
+    [{pid,10062},
+      {running_applications,
+          [{rabbitmq_management_visualiser,"RabbitMQ Visualiser","3.2.3"},
+          {rabbitmq_management,"RabbitMQ Management Console","3.2.3"},
+          {rabbitmq_web_dispatch,"RabbitMQ Web Dispatcher","3.2.3"},
+          {webmachine,"webmachine","1.10.3-rmq3.2.3-gite9359c7"},
+          {mochiweb,"MochiMedia Web Server","2.7.0-rmq3.2.3-git680dba8"},
+          {rabbitmq_mqtt,"RabbitMQ MQTT Adapter","3.2.3"},
+          {rabbitmq_stomp,"Embedded Rabbit Stomp Adapter","3.2.3"},
+          {rabbitmq_management_agent,"RabbitMQ Management Agent","3.2.3"},
+          {rabbitmq_amqp1_0,"AMQP 1.0 support for RabbitMQ","3.2.3"},
+          {rabbit,"RabbitMQ","3.2.3"},
 
 --------------------------------------------------
 
@@ -342,19 +370,19 @@
 
 # Login
 
-![Landscape](../static/images/slides/login_rabbitmq.png)
+![login rabbitmq](../static/images/slides/login_rabbitmq.png)
 
 --------------------------------------------------
 
 # DashBoard
 
-![Landscape](../static/images/slides/dash_rabbitmq.png)
+![dashboard](../static/images/slides/dash_rabbitmq.png)
 
 --------------------------------------------------
 
 # Que pasa si el consumidor se cae?
 
-![Landscape](../static/images/slides/ohno-cat.jpg)
+![oh no cat](../static/images/slides/ohno-cat.jpg)
 
 --------------------------------------------------
 
@@ -364,7 +392,7 @@
 
 # Supervisord:
 
-![Landscape](../static/images/slides/supervisor.png)
+![supervisor](../static/images/slides/supervisor.png)
 
 --------------------------------------------------
 
@@ -374,7 +402,7 @@
 
 # Interfaz Grafica
 
-![Landscape](../static/images/slides/gui_supervisord.jpg)
+![gui supervisord](../static/images/slides/gui_supervisord.jpg)
 
 --------------------------------------------------
 
