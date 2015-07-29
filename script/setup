@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-pyenv virtualenv vagrant-2.7.9
-
-pyenv activate vagrant-2.7.9
+if [[ ! $TRAVIS = 'true' ]]; then
+    pyenv virtualenv venv-2.7.9
+    pyenv activate venv-2.7.9
+fi
 
 pip install -r requirements.txt
