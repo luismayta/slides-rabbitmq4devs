@@ -1,5 +1,5 @@
-
 <span class="badges">
+[![Build Status](https://travis-ci.org/luismayta/decoupled-applications-with-rabbitmq.svg)](https://travis-ci.org/luismayta/decoupled-applications-with-rabbitmq)
 [![Stories in Ready](https://badge.waffle.io/luismayta/decoupled-applications-with-rabbitmq.svg?label=ready&title=Ready)](http://waffle.io/luismayta/decoupled-applications-with-rabbitmq)
 [![GitHub issues](https://img.shields.io/github/issues/luismayta/decoupled-applications-with-rabbitmq.svg)](https://github.com/luismayta/decoupled-applications-with-rabbitmq/issues)
 [![GitHub forks](https://img.shields.io/github/forks/luismayta/decoupled-applications-with-rabbitmq.svg)](https://github.com/luismayta/decoupled-applications-with-rabbitmq)
@@ -10,7 +10,6 @@
 # Aplicaciones desacopladas con RabbitMQ
 
 This is a talk for the [Pymienta 2015](http://pimientadigital.com) conference.
-
 
 ## Install
 

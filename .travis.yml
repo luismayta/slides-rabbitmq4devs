@@ -1,0 +1,37 @@
+language: python
+
+os:
+  - osx
+  - linux
+
+python:
+  - "2.7"
+  - "3.3"
+  - "3.4"
+  - "nightly"
+
+sudo: true
+
+before_install:
+  - if [[ "$(uname -s)" == 'Linux' ]]; then
+      travis_retry sudo apt-get update -qq;
+      sudo apt-get install python-pip -y;
+    fi
+  - if [[ "$(uname -s)" == 'Darwin' ]]; then
+      travis_retry brew update;
+      brew install pip;
+    fi
+
+install:
+  uname -a && export TRAVIS=true && export TEST=true && ./script/setup
+
+script:
+  uname -a && export TRAVIS=true && export TEST=true && ./script/generate
+
+notifications:
+  email: false
+
+# Local Variables:
+# indent-tabs-mode: nil
+# coding: utf-8
+# End:
